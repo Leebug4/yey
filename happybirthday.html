@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Happy Birthday Love 🌸🦋</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #5b2aa6 0%, #6f3bbf 50%, #8b63e6 100%);
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Background sparkles */
+#bg-sparkles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Click sparkles layer */
+#click-sparkles {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* Stage */
+.stage {
+  width: min(1100px, 92vw);
+  height: min(640px, 76vh);
+  position: relative;
+  border-radius: 20px;
+  padding: 40px;
+  background: radial-gradient(1200px 400px at 10% 10%, rgba(255,255,255,0.03), transparent 10%),
+              linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+  box-shadow: 0 6px 30px rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Greeting text */
+.greeting {
+  position: absolute;
+  left: 48px;
+  top: 48px;
+  max-width: 62%;
+  line-height: 1.1;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.line1 { font-size: clamp(28px, 3.8vw, 40px); letter-spacing: 1px; opacity: 0; transform: translateY(10px); animation: slideUp 700ms cubic-bezier(.2,.9,.2,1) forwards 150ms; }
+.line2 { font-size: clamp(48px, 6.6vw, 84px); font-weight: 800; margin-top: 10px; display: inline-block; opacity: 0; transform: translateY(12px); animation: slideUp 700ms cubic-bezier(.2,.9,.2,1) forwards 450ms; }
+.name { position: relative; display: inline-block; padding: 6px 12px; border-radius: 14px; background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03)); box-shadow: 0 6px 18px rgba(139,99,230,0.24); transform-origin: center bottom; animation: popIn 900ms cubic-bezier(.17,.9,.2,1) forwards 900ms; }
+.name .highlight { color: #ffe86b; text-shadow: 0 4px 18px rgba(255,232,107,0.25), 0 0 40px rgba(255,232,107,0.08); font-weight: 900; letter-spacing: 0.6px; }
+.sub { margin-top: 16px; color: rgba(255,255,255,0.9); font-weight: 500; opacity: 0; transform: translateY(8px); animation: slideUp 700ms cubic-bezier(.2,.9,.2,1) forwards 1200ms; }
+
+/* Butterflies */
+.butterflies {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 10;
+}
+
+.butterfly {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  transform-origin: 50% 50%;
+  opacity: 0.95;
+  will-change: transform;
+  z-index: 10;
+}
+
+.butterfly svg { width: 100%; height: 100%; }
+.wing { transform-origin: 50% 60%; animation: wingFlap 0.9s ease-in-out infinite; }
+.wing.left { animation-delay: 0s; } .wing.right { animation-delay: 0.05s; }
+@keyframes wingFlap { 0%{transform:rotate(0deg)}50%{transform:rotate(-16deg) translateY(-3%)}100%{transform:rotate(0deg)} }
+
+.scatter-img {
+  position: absolute;
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+  z-index: 20;
+  transition: transform .24s ease, box-shadow .24s ease;
+}
+.scatter-img:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 14px 40px rgba(0,0,0,0.5); }
+
+@keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes popIn { 0%{opacity:0;transform:scale(0.8)translateY(8px)}60%{transform:scale(1.06)translateY(-6px);opacity:1}100%{transform:scale(1)translateY(0)} }
+
+.hint { position: absolute; right: 24px; bottom: 18px; font-size: 13px; color: rgba(255,255,255,0.85); opacity: 0.9; z-index: 40; pointer-events: none; }
+
+/* Sparkle */
+.bg-sparkle, .click-sparkle {
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+.bg-sparkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255,255,255,0.3);
+}
+
+.click-sparkle {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  background: #fff; /* solid white pixel */
+  transform: translateZ(0);
+  animation: sparklePop 0.6s ease-out forwards;
+}
+
+@keyframes sparklePop {
+  0% { transform: scale(0); opacity:1; }
+  50% { transform: scale(1.5); opacity:1; }
+  100% { transform: scale(0); opacity:0; }
+}
+</style>
+</head>
+<body>
+
+<div id="bg-sparkles"></div>
+<div id="click-sparkles"></div>
+
+<div class="stage" role="main" aria-label="Happy Birthday card for Emz">
+  <div class="greeting">
+    <div class="line1">Wishing you a day full of joy,</div>
+    <div class="line2">Happy Birthday <span class="name"><span class="highlight">Chrisha: lablab</span></span>!</div>
+    <div class="sub">May your year be colorful and kind — like butterflies in flight.</div>
+  </div>
+  <div class="butterflies" id="butterflies"></div>
+  <div class="hint">Click anywhere to sprinkle sparkles ✨</div>
+</div>
+
+<!-- Images -->
+<img class="scatter-img" src="img1.jpg" alt="">
+<img class="scatter-img" src="img2.jpg" alt="">
+<img class="scatter-img" src="img3.jpg" alt="">
+<img class="scatter-img" src="img4.jpg" alt="">
+<img class="scatter-img" src="img5.jpg" alt="">
+<img class="scatter-img" src="img6.jpg" alt="">
+<img class="scatter-img" src="img7.jpg" alt="">
+<img class="scatter-img" src="img8.jpg" alt="">
+<img class="scatter-img" src="img9.jpg" alt="">
+
+<script>
+const imagePositions = [
+  {x: 100, y: 20}, {x: 900, y: 700}, {x: 1200, y: 140}, {x: 1400, y: 500},
+  {x: 300, y: 180}, {x: 50, y: 600}, {x: 600, y: 100}, {x: 1700, y: 800}, {x: 1500, y: 100}
+];
+const butterflyPositions = [
+  {x: 20, y: 500}, {x: 300, y: 50}, {x: 600, y: 400}, {x: 900, y: 450}, {x: 800, y: 120}
+];
+
+window.addEventListener('load', ()=>{
+  document.querySelectorAll('.scatter-img').forEach((img,i)=>{
+    const pos=imagePositions[i % imagePositions.length];
+    img.style.left=pos.x+'px';
+    img.style.top=pos.y+'px';
+    img.style.transform=`rotate(${Math.random()*18-9}deg)`;
+  });
+
+  // Butterflies
+  const butterflyContainer=document.getElementById('butterflies');
+  butterflyContainer.innerHTML='';
+  butterflyPositions.forEach((pos,i)=>{
+    const wrapper=document.createElement('div');
+    wrapper.className='butterfly';
+    wrapper.style.left=pos.x+'px';
+    wrapper.style.top=pos.y+'px';
+    wrapper.innerHTML=`
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(60,60)">
+          <ellipse class="wing left" cx="-22" cy="0" rx="26" ry="34" fill="${i%2? '#ffe86b':'#ff9bd8'}" fill-opacity="0.95"/>
+          <ellipse class="wing right" cx="22" cy="0" rx="26" ry="34" fill="${i%2? '#9be6ff':'#c8a3ff'}" fill-opacity="0.95"/>
+          <circle cx="0" cy="0" r="6" fill="#2b0d4a"/>
+        </g>
+      </svg>`;
+    butterflyContainer.appendChild(wrapper);
+    const dur=7000+Math.floor(Math.random()*8000);
+    wrapper.animate([{ transform:'translateY(0px)'},{ transform:`translateY(${Math.random()*18-9}px)`},{ transform:'translateY(0px)'}],
+    {duration:dur,iterations:Infinity,easing:'ease-in-out'});
+  });
+
+  // Background sparkles
+  const bg=document.getElementById('bg-sparkles');
+  const bgSparkles=[];
+  for(let i=0;i<100;i++){
+    const sp=document.createElement('div');
+    sp.className='bg-sparkle';
+    sp.style.left=Math.random()*window.innerWidth+'px';
+    sp.style.top=Math.random()*window.innerHeight+'px';
+    const size=2+Math.random()*3;
+    sp.style.width=sp.style.height=size+'px';
+    sp.speed=0.2+Math.random()*0.5;
+    bg.appendChild(sp);
+    bgSparkles.push(sp);
+  }
+
+  function animateBgSparkles(){
+    bgSparkles.forEach(sp=>{
+      let top=parseFloat(sp.style.top);
+      top-=sp.speed;
+      if(top<-10) top=window.innerHeight+10;
+      sp.style.top=top+'px';
+      sp.style.opacity=0.2+Math.random()*0.6;
+    });
+    requestAnimationFrame(animateBgSparkles);
+  }
+  animateBgSparkles();
+});
+
+// Click sparkles
+const clickLayer=document.getElementById('click-sparkles');
+document.body.addEventListener('click',(e)=>{
+  for(let i=0;i<12;i++){
+    const sp=document.createElement('div');
+    sp.className='click-sparkle';
+    sp.style.left=(e.clientX+Math.random()*60-30)+'px';
+    sp.style.top=(e.clientY+Math.random()*60-30)+'px';
+    const size=2+Math.random()*4;
+    sp.style.width=sp.style.height=size+'px';
+    clickLayer.appendChild(sp);
+    setTimeout(()=>sp.remove(),600);
+  }
+});
+
+// Highlight glow
+const highlight=document.querySelector('.highlight');
+let glow=0;
+setInterval(()=>{
+  glow=(glow+1)%360;
+  highlight.style.textShadow=`0 6px 28px rgba(255,232,107,0.22),0 0 40px rgba(255,232,107,${0.06+Math.abs(Math.sin(glow/40))*0.12})`;
+},160);
+</script>
+</body>
+</html>
